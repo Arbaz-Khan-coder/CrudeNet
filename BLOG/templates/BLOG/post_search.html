@@ -1,0 +1,38 @@
+{% extends 'BLOG/basic.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <form method="GET">
+                    {{ myfilter.form|crispy }}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                    <br><small>Note: Date format should be 'Year-Month-Day'</small>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% for blog in search_blog %}
+        <form style="border-style:ridge;border-radius: 10px;;margin-left: 220px;margin-top: 20px;width: 1000px;background-color: white">
+            <h1 style="font-size: 50px;font-family: timesnewroman;margin-left: 20px">
+                <a href="{% url 'CrudeNet-DetailPost' blog.id %}" style="color: rgb(5, 130, 255)">{{ blog.caption }}</a></h1>
+            <h2 style="font-size: 25px;color: rgb(30, 101, 255);font-family: bookmanoldstyle;margin-left: 15px">{{ blog.author }} 
+            <small style="font-family: bookmanoldstyle;font-size: 15px;margin-left: 8px">{{ blog.date_posted|date:"F d, Y" }}</small>
+            {% if blog.author == user %}
+                <br>
+                <a style="color:rgb(25, 88, 206);font-family: bookmanoldstyle;font-size: 18px" 
+                href="{% url 'CrudeNet-DeletePost' blog.id %}"> Delete</a>
+                <b style="font-size: 25px;color: black">.</b>
+                <a style="color:rgb(25, 88, 206);font-family: bookmanoldstyle;font-size: 18px" 
+                href="{% url 'CrudeNet-EditPost' blog.id %}"> Edit</a>
+            {% endif %}
+            </h2>  
+            <br>
+            <pre style="margin-left: 15px;font-size: 30px;font-family: Cambri;
+            text-overflow: ellipsis;overflow: hidden;max-height: 300px">{{ blog.content }}</pre>
+        </form>
+    {% endfor %}
+<br>
+{% endblock %}

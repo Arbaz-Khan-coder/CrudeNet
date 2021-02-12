@@ -1,0 +1,50 @@
+{% extends "BLOG/basic.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% load static %}
+    <br> 
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'CrudeNet-Home' %}">BLOGS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-TimeLineHome' %}">TIMELINE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-ImageHome' %}">IMAGES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-VidoeHome' %}">VIDEOS</a>
+        </li>
+    </ul>
+    <br>
+    <div class="row" style="border-radius: 12px;margin-left: 70px">
+        {% for post in posts %}
+            <div class="column" style="margin-left: 50px;">
+            <div class="card" style="width: 33rem;">
+                <img src="{{ post.author.profile.dp.url }}" class="card-img-top" alt="Profile" height="300" width="300">
+                <div class="card-body">
+                    <a href="{% url 'CrudeNet-Profile' post.author.id %}" class="card-title">{{ post.author }}</a>
+                    {% if post.author.is_superuser %}
+                        <img width="32" height="32" src="{% static "superuser_tick.png" %}">
+                    {% endif %}
+                    <br>
+                    <a href="{% url 'CrudeNet-DetailPost' post.id %}" class="card-subtitle mb-2 text-muted" style="font-size: 30px">{{ post.caption }}</a><br>
+                    <small style="margin-left: 10px">{{ post.date_posted|date:"d,F Y" }}</small><br>
+                    {% if post.author == user %}
+                        <a href="{% url 'CrudeNet-DeletePost' post.id %}" class="card-link">
+                            <img src="{% static 'delete.png' %}" width="32" height="32"></a>
+                        <b style="font-size: 25px;color: black">.</b>
+                        <a href="{% url 'CrudeNet-EditPost' post.id %}" class="card-link">
+                            <img src="{% static 'edit.png' %}" width="32" height="32"></a><br>
+                    {% endif %}
+                    <a href="{% url 'CrudeNet-DetailPost' post.id %}" class="card-link">See Blog</a>
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

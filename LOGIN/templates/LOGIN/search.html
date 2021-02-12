@@ -1,0 +1,10 @@
+{% extends "BLOG/basic.html" %}
+{% block body %}
+    <br>
+    <div class="container-fluid" style="margin-left: 200px">
+        <form class="d-flex" method="GET" action="{% url 'CrudeNet-SearchResult' %}" ">
+        <input class="form-control me-2" name="search_box" type="search" id="search_boxID" placeholder="Search" aria-label="Search" style="width: 800px">
+        <button class="btn btn-outline-dark" type="submit" style="width: 200px;margin-left: 40px">Search</button>
+        </form>
+    </div>
+{% endblock %}

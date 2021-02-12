@@ -1,0 +1,21 @@
+{% extends "BLOG/basic.html" %}
+{% block body %}
+    <div class="content-section" style="margin-top: 30px">
+        <form method="POST" style="margin-left: 100px">
+            {% csrf_token %}
+            <fieldset class="form-group" style="margin-left: 10px;margin-right: 200px">
+                <legend class="border-bottom mb-4">Delete Post</legend>
+            <h1>Are you sure you wanna delete this Post</h1>
+            </fieldset>
+            <label class="card-subtitle mb-2 text-muted" style="font-size: 30px;width: 800px; text-overflow: ellipsis; white-space: nowrap;
+                    overflow: hidden;"">
+                    {{ object.content }}</label>
+            <div class="form-group">
+                <button class="btn btn-outline-danger btn-sm" type="submit" style="margin-left: 170px;width: 300px;height: 40px;font-size: 20px">
+                    Yes,Delete</button>
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'CrudeNet-PersonalTimeLine' %}" style="margin-left: 20px">No,dont't delete</a>
+            </div>
+        </form> 
+        <br>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "BLOG/basic.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% load static %}
+    <br>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-Home' %}">BLOGS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"href="{% url 'CrudeNet-TimeLineHome' %}">TIMELINE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'CrudeNet-ImageHome' %}">IMAGES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-VidoeHome' %}">VIDEOS</a>
+        </li>
+    </ul>
+    <br>
+    <div class="row" style="border-radius: 12px;margin-left: 70px">
+        {% for post in media %}
+            <div class="column" style="margin-left: 50px;">
+            <div class="card" style="width: 33rem;">
+                <img src="{{ post.image.url }}" class="card-img-top" alt="Image" height="300" width="300">
+                <div class="card-body">
+                    <a href="{% url 'CrudeNet-Profile' post.user.id %}" class="card-title">
+                        <img class="rounded-circle account-img" src="{{ post.user.profile.dp.url }}" width="80"> 
+                        {{ post.user }}</a>
+                        {% if post.user.is_superuser %}
+                            <img width="32" height="32" src="{% static "superuser_tick.png" %}">
+                        {% endif %}
+                        <br><br>
+                    <label class="card-subtitle mb-2 text-muted" style="font-size: 15px;width: 400px; text-overflow: ellipsis; white-space: nowrap;
+                    overflow: hidden;"">
+                        {{ post.caption }}</label><br>
+                    <small style="margin-left: 10px">{{ post.date_posted|date:"d,F Y" }}</small><br>
+                    {% if post.user == user %}
+                        <a href="{% url 'CrudeNet-ImageDeletePost' post.id %}" class="card-link">
+                            <img src="{% static 'delete.png' %}" width="32" height="32"></a>
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

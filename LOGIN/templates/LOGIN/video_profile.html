@@ -1,0 +1,42 @@
+{% extends "BLOG/basic.html" %}
+{% load static %}
+{% block body %}
+    <br>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-PostProfile' id %}">TIMELINE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-ImageProfile' id %}">IMAGES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'CrudeNet-VideoProfile' id %}">VIDEOS</a>
+        </li>
+    </ul>
+    <br>
+    <div class="row" style="border-radius: 12px;margin-left: 70px">
+        {% for p in posts %}
+        <div class="column" style="margin-left: 50px;">
+            <div class="card" style="width: 33rem;">
+                <video width="500" height="500" controls class="card-img-top" >
+                    <source src="{{p.video.url}}" type="video/mp4"></video>
+                <div class="card-body">
+                    <a href="{% url 'CrudeNet-Profile' p.user.id %}" class="card-title">{{ p.user }}</a>
+                    {% if p.user.is_superuser %}
+                        <img width="32" height="32" src="{% static "superuser_tick.png" %}">
+                    {% endif %}
+                    <br>
+                    <label class="card-subtitle mb-2 text-muted" style="font-size: 15px;width: 400px; text-overflow: ellipsis; white-space: nowrap;
+                    overflow: hidden;"">
+                        {{ p.caption }}</label><br>
+                    <small style="margin-left: 10px">{{ p.date_posted|date:"d,F Y" }}</small><br>
+                    {% if p.user == user %}
+                        <a href="{% url 'CrudeNet-DeletePost' p.id %}" class="card-link">
+                            <img src="{% static 'delete.png' %}" width="32" height="32"></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

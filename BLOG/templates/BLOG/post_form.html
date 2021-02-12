@@ -1,0 +1,37 @@
+{% extends "BLOG/basic.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <br>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'CrudeNet-AddPost' %}">WRITE BLOG</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-AddWritePost' %}">WRITE TIMELINE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-AddImagePost' %}">UPLOAD IMAGE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'CrudeNet-AddVideoPost' %}">UPLOAD VIDEO</a>
+        </li>
+    </ul>
+    <div class="content-section" style="margin-top: 30px;">
+        <form method="POST" style="margin-left: 100px">
+            {% csrf_token %}
+            <fieldset class="form-group" style="margin-left: 10px;margin-right: 200px">
+                <legend class="border-bottom mb-4">Add Post</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary btn-sm" type="submit" 
+                style="margin-left: 350px;width: 300px;height: 45px;font-size: 25px">
+                    Post</button>
+            </div>
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+{% endblock %}

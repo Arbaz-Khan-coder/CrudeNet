@@ -1,0 +1,21 @@
+{% extends "BLOG/basic.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+<br>
+    <form method="POST" enctype="multipart/form-data" style="margin-left: 100px">
+        {% csrf_token %}
+        <fieldset class="form-group" style="margin-left: 10px;margin-right: 200px">
+            <legend class="border-bottom mb-4">Profile Info</legend>
+            {{ u_form|crispy }}
+            {{ p_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-primary btn-sm" type="submit" style="margin-left: 300px;width: 300px;height: 40px;font-size: 20px">
+                Update</button>
+        </div>
+    </form>
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

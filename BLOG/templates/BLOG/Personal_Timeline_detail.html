@@ -1,0 +1,17 @@
+{% extends "BLOG/basic.html" %}
+{% load static %}
+{% block body %}
+    <article class="media content-section" style="margin-top: 60px;margin-left: 30px">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a href="{% url 'CrudeNet-Profile' object.writer.id %}" style="font-size: 30px;font-family:timesnewroman;color: rgb(30, 101, 255)">{{ object.writer }}</a>
+                {% if request.user.is_superuser %}
+                    <img width="32" height="32" src="{% static "superuser_tick.png" %}">
+                {% endif %}
+                <small class="text-muted">{{ object.date_posted|date:"d,F Y" }}</small>
+            </div>
+            <br>
+            <pre class="article-content" style="font-size: 25px;font-family: Timesnewroman">{{ object.content }}</pre>
+        </div>
+    </article>
+{% endblock %}

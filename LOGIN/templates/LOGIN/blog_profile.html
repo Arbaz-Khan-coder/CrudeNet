@@ -1,0 +1,32 @@
+{% extends "BLOG/basic.html" %}
+{% load static %}
+{% block body %}
+    <br>
+    <br>
+    <div class="row" style="border-radius: 12px;margin-left: 70px">
+        {% for i in posts %}
+        <div class="column" style="margin-left: 50px;">
+            <div class="card" style="width: 33rem;">
+                <img src="{{ i.author.profile.dp.url }}" class="card-img-top" alt="Profile" height="300" width="300">
+                <div class="card-body">
+                    <a href="{% url 'CrudeNet-Profile' i.author.id %}" class="card-title">{{ i.author }}</a>
+                    {% if i.author.is_superuser %}
+                        <img width="32" height="32" src="{% static "superuser_tick.png" %}">
+                    {% endif %}
+                    <br>
+                    <a href="{% url 'CrudeNet-DetailPost' i.id %}" class="card-subtitle mb-2 text-muted" style="font-size: 30px">{{ i.caption }}</a><br>
+                    <small style="margin-left: 10px">{{ i.date_posted|date:"d,F Y" }}</small><br>
+                    {% if i.author == user %}
+                        <a href="{% url 'CrudeNet-DeletePost' i.id %}" class="card-link">
+                            <img src="{% static 'delete.png' %}" width="32" height="32"></a>
+                        <b style="font-size: 25px;color: black">.</b>
+                        <a href="{% url 'CrudeNet-EditPost' i.id %}" class="card-link">
+                            <img src="{% static 'edit.png' %}" width="32" height="32"></a><br>
+                    {% endif %}
+                    <a href="{% url 'CrudeNet-DetailPost' i.id %}" class="card-link">See Blog</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
